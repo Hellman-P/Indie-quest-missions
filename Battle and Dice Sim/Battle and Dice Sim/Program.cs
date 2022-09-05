@@ -61,18 +61,18 @@ namespace Battle_and_Dice_Sim
                     string enemyTarget = heroes[enemyTargetIndex];
 
                     int saveDC = DiceRoll(numberOfRolls: 1, diceSides: 20, fixedBonus: 5); // savingthrow
+
+                    Console.WriteLine();
+                    if (saveDC < savingThrowDC)
                     {
-                        Console.WriteLine();
-                        if (saveDC < savingThrowDC)
-                        {
-                            Console.WriteLine($"Sadly {enemyTarget} was a weakling and has been killed by {monsterName}\n");
-                            heroes.Remove(enemyTarget);
-                        }
-                        else
-                        {
-                            Console.WriteLine($"The {monsterName} attacks but misses\n");
-                        }
+                        Console.WriteLine($"Sadly {enemyTarget} was a weakling and has been killed by the {monsterName}\n");
+                        heroes.Remove(enemyTarget);
                     }
+                    else
+                    {
+                        Console.WriteLine($"The {monsterName} attacks but misses\n");
+                    }
+
                 }
             }
             //Ending speech
@@ -99,8 +99,8 @@ namespace Battle_and_Dice_Sim
         {
             // List of heroes
             var heroes = new List<string> { "Alucard", "Rudeus", "Canti", "Hoosuki" };
-                        
-            int orcHP = DiceRoll(numberOfRolls:2, diceSides:8, fixedBonus:6); // Rolling orc health
+
+            int orcHP = DiceRoll(numberOfRolls: 2, diceSides: 8, fixedBonus: 6); // Rolling orc health
             SimulateBattle(heroes: heroes, monsterName: "orc", monsterHP: orcHP, savingThrowDC: 12, introTrigger: 0);
             int mageHP = DiceRoll(numberOfRolls: 9, diceSides: 8); // Rolling mage health
             SimulateBattle(heroes: heroes, monsterName: "mage", monsterHP: mageHP, savingThrowDC: 20, introTrigger: 1);
