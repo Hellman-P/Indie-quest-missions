@@ -65,7 +65,7 @@ namespace A_better_join
         }
         static void Main(string[] args)
         {
-            var items = new List<string> { "Alucard" };
+            var items = new List<string> { "Alucard", "Rudeus", "Canti", "Hoosuki" };
 
             JoinWithAnd(items, true);
             Console.WriteLine();
