@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 namespace A_better_join
 {
@@ -8,6 +9,9 @@ namespace A_better_join
     {
         static void JoinWithAnd(List<string> items, bool useSerialComma = true)
         {
+            var itemsCopy = new List<string>(items);
+
+            // OG list
             // No items
             if (items.Count == 0)
             {
@@ -20,7 +24,7 @@ namespace A_better_join
                 Console.WriteLine(items[0]);
             }
             // More than 1 items
-            else if (items.Count > 1)
+            else if (items.Count == 2) //I initially made this to work with more than 2 because I can't read
             {
                 for (int i = 0; i < items.Count - 1; i++)
                 {
@@ -34,23 +38,20 @@ namespace A_better_join
                 Console.WriteLine();
             }
 
-
-
-            var itemsCopy = new List<string>(items);
-
-            if (useSerialComma == true)
+            // Copied List
+            else if (useSerialComma == true)
             {
+                itemsCopy.Insert(itemsCopy.Count - 1, "and");
 
+                Console.WriteLine(string.Join(", ", itemsCopy));
             }
             else
             {
                 string lastItem = itemsCopy[itemsCopy.Count - 1];
-                string secondLastItem = itemsCopy[itemsCopy.Count - 2];
-                string andCombo = secondLastItem + " and " + lastItem;
+                string andCombo = "and " + lastItem;
 
-                itemsCopy.Insert(itemsCopy.Count - 2, andCombo);
+                itemsCopy.Insert(itemsCopy.Count - 1, andCombo);
 
-                itemsCopy.Remove(secondLastItem);
                 itemsCopy.Remove(lastItem);
 
                 Console.WriteLine(string.Join(", ", itemsCopy));
@@ -59,9 +60,11 @@ namespace A_better_join
         }
         static void Main(string[] args)
         {
-            var items = new List<string> { "Alucard", "Rudeus", "Canti", "Hoosuki" };
+            var items = new List<string> { "Alucard" };
 
             JoinWithAnd(items, false);
+            Console.WriteLine();
+            JoinWithAnd(items, true);
 
             // "Alucard", "Rudeus", "Canti", "Hoosuki"
         }
