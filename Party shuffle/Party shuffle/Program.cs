@@ -32,6 +32,7 @@ namespace Party_shuffle
             Console.WriteLine("Generating random order of scrubs....\n");
 
             ShuffleList(gamers);
+
         }
     }
 }
