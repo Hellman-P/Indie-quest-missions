@@ -74,23 +74,33 @@ namespace Travel_the_world_map
 
             int randomStart = random.Next(0, locations.Count);
             currentLocation = locations[randomStart];
+            bool exitLoop = false;
 
             // Interface
-            interfaceLoop:
-            Console.WriteLine($"You are currently in {currentLocation.Name}, {currentLocation.Description}\n");
-            Console.WriteLine("if you wish to travel your possible destinations are:\n");
+            while (!exitLoop)
+                {
+                Console.WriteLine($"You are currently in {currentLocation.Name}, {currentLocation.Description}\n");
+                Console.WriteLine("if you wish to travel your possible destinations are:\n");
 
-            for (int i = 0; i < currentLocation.Neighbors.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {currentLocation.Neighbors[i].Name}");
+                for (int i = 0; i < currentLocation.Neighbors.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {currentLocation.Neighbors[i].Name}");
+                }
+                Console.WriteLine($"{currentLocation.Neighbors.Count+1}. Stay here and exit the map");
+
+                Console.WriteLine();
+                Console.WriteLine("Where do you wish to travel? (Type number and press ENTER...)");
+                int choosenDestination = Convert.ToInt32(Console.ReadLine()) - 1;
+                if (choosenDestination == currentLocation.Neighbors.Count)
+                {
+                    exitLoop = true;
+                }
+                else
+                {
+                    currentLocation = currentLocation.Neighbors[choosenDestination];
+                    Console.Clear();
+                }
             }
-
-            Console.WriteLine();
-            Console.WriteLine("Where do you wish to travel? (Type number and press ENTER...)");
-            int choosenDestination = Convert.ToInt32(Console.ReadLine())-1;
-            currentLocation = locations[choosenDestination]; //moving between destinations instead of neighbors
-            Console.Clear();
-            goto interfaceLoop;
         }
     }
 }
