@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32811.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Olympic Games quiz", "Olympic Games quiz\Olympic Games quiz.csproj", "{FB5A8521-FFA7-4585-8A16-22CB0C944417}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FB5A8521-FFA7-4585-8A16-22CB0C944417}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB5A8521-FFA7-4585-8A16-22CB0C944417}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB5A8521-FFA7-4585-8A16-22CB0C944417}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB5A8521-FFA7-4585-8A16-22CB0C944417}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {47A64710-7391-496C-A90D-42D212FE2460}
+	EndGlobalSection
+EndGlobal
