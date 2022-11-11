@@ -25,28 +25,29 @@ namespace Simple_calculator
                 int y;
                 int x;
                 int price;
+                int lastItem = splitInput.Length -1;
 
                 y = Int16.Parse(splitInput[0]);
 
                 if (splitInput.Length > 1)
                 {
-                    x = Int16.Parse(splitInput[2]);
+                    x = Int16.Parse(splitInput[lastItem]);
 
                     switch (splitInput[1])
                     {
-                        case "+":
+                        case "+": case "plus": case "add": case "added":
                             price = y + x;
                             break;
 
-                        case "-":
+                        case "-": case "minus": case "detract": case "detracted":
                             price = y - x;
                             break;
 
-                        case "*":
+                        case "*": case "multiply": case "multiplied":
                             price = y * x;
                             break;
 
-                        case "/":
+                        case "/": case "divide": case "divided":
                             price = y / x;
                             break;
 
