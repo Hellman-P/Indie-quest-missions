@@ -2,11 +2,48 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security;
 
 namespace Caveing___keyword_parsing
 {
     internal class Program
     {
+        class CaveRoom
+        {
+            public string Description;
+            public SortedList<string, string> GenericKeywords = new SortedList<string, string>();
+            public SortedList<string, string> UniqueKeywords = new SortedList<string, string>();
+            public List<CaveRoom> AdjacenttRooms = new List<CaveRoom>();
+        }
+        static void GenerateRooms()
+        {
+            var CaveRooms = new List<CaveRoom>();
+
+            CaveRooms.Add(new CaveRoom // 0
+            {
+                Description = "You enter a dark cave...",
+                GenericKeywords = new SortedList<string, string>(),
+
+
+                UniqueKeywords = new SortedList<string, string>(),
+                AdjacenttRooms = new List<CaveRoom>()
+            });
+            CaveRooms.Add(new CaveRoom // 1
+            {
+                Description = "You enter a wet cave...",
+                GenericKeywords = new SortedList<string, string>(),
+                UniqueKeywords = new SortedList<string, string>(),
+                AdjacenttRooms = new List<CaveRoom>()
+            });
+            CaveRooms.Add(new CaveRoom // 2
+            {
+                Description = "You enter a smelly cave...",
+                GenericKeywords = new SortedList<string, string>(),
+                UniqueKeywords = new SortedList<string, string>(),
+                AdjacenttRooms = new List<CaveRoom>()
+            });
+
+        }
         static void uniqueKeywordUnlocks(string uniqueKeyword, int roomNumber)
         {
             switch (roomNumber)
@@ -98,14 +135,11 @@ namespace Caveing___keyword_parsing
             // Room Data
             // Room 1
             var room1Keywords = new List<string> { "rope", "swim"};
-            bool rope = false;
-            bool swim = false;
-            // Room 2
-            var room2Keywords = new List<string> { };
 
-            // Room 3
-            var room3Keywords = new List<string> { };
-
+            // Generating Rooms
+            var CaveRooms = new List<CaveRoom>();
+            CaveRoom currentRoom = new CaveRoom();
+            GenerateRooms();
 
             //player input & calling methods
             while (true)
