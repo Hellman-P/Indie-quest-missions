@@ -13,7 +13,7 @@ namespace Caveing___keyword_parsing
             public string Description;
             public SortedList<string, string> GenericKeywords = new SortedList<string, string>();
             public SortedList<string, string> UniqueKeywords = new SortedList<string, string>();
-            public List<bool> ExplorationUnlocks = new List<bool>();
+            public SortedList<string, bool> ExplorationUnlocks = new SortedList<string, bool>();
         }
         static void uniqueKeywordUnlocks(string input, SortedList<string, string> uniqueKeywords)
         {
@@ -55,21 +55,21 @@ namespace Caveing___keyword_parsing
                 Description = "You enter a dark cave...",
                 GenericKeywords = new SortedList<string, string>(),
                 UniqueKeywords = new SortedList<string, string>(),
-                ExplorationUnlocks = new List<bool>()
+                ExplorationUnlocks = new SortedList<string, bool>()
             });
             caveRoomsList.Add(new CaveRoom // 1
             {
                 Description = "You enter a wet cave...",
                 GenericKeywords = new SortedList<string, string>(),
                 UniqueKeywords = new SortedList<string, string>(),
-                ExplorationUnlocks = new List<bool>()
+                ExplorationUnlocks = new SortedList<string, bool>()
             });
             caveRoomsList.Add(new CaveRoom // 2
             {
                 Description = "You enter a smelly cave...",
                 GenericKeywords = new SortedList<string, string>(),
                 UniqueKeywords = new SortedList<string, string>(),
-                ExplorationUnlocks = new List<bool>()
+                ExplorationUnlocks = new SortedList<string, bool>()
             });
 
             // Building room #1
@@ -85,11 +85,22 @@ namespace Caveing___keyword_parsing
             caveRoomsList[0].UniqueKeywords.Add("Swim", " you consider jumping into the water for a while before carefully lowering yourself into the suprisingly deep cold stream. It's not as strong as you expected but you still have a hard time swimming");
 
             // Exploration unlocks
+            caveRoomsList[0].GenericKeywords.Add("Tunnel", false); // why bool not work?
+
+
+            // Building room #2
+            caveRoomsList[1].GenericKeywords.Add("test", "testing");
+
+            // Unique keywords
+
+            // Exploration unlocks
+
+
 
 
 
             // Gameplay loop necessities
-            int currentRoom = 0;
+            int currentRoom = 1;
             var currentRoomGenericSortedList = caveRoomsList[currentRoom].GenericKeywords;
             var currentRoomUniqueSortedList = caveRoomsList[currentRoom].UniqueKeywords;
 
