@@ -15,27 +15,27 @@ namespace Caveing___keyword_parsing
             public SortedList<string, string> UniqueKeywords = new SortedList<string, string>();
             public List<CaveRoom> AdjacenttRooms = new List<CaveRoom>();
         }
+
+
         static void GenerateRooms()
         {
-            var CaveRooms = new List<CaveRoom>();
+            var caveRoomsList = new List<CaveRoom>();
 
-            CaveRooms.Add(new CaveRoom // 0
+            caveRoomsList.Add(new CaveRoom // 0
             {
                 Description = "You enter a dark cave...",
                 GenericKeywords = new SortedList<string, string>(),
-
-
                 UniqueKeywords = new SortedList<string, string>(),
                 AdjacenttRooms = new List<CaveRoom>()
             });
-            CaveRooms.Add(new CaveRoom // 1
+            caveRoomsList.Add(new CaveRoom // 1
             {
                 Description = "You enter a wet cave...",
                 GenericKeywords = new SortedList<string, string>(),
                 UniqueKeywords = new SortedList<string, string>(),
                 AdjacenttRooms = new List<CaveRoom>()
             });
-            CaveRooms.Add(new CaveRoom // 2
+            caveRoomsList.Add(new CaveRoom // 2
             {
                 Description = "You enter a smelly cave...",
                 GenericKeywords = new SortedList<string, string>(),
@@ -43,7 +43,14 @@ namespace Caveing___keyword_parsing
                 AdjacenttRooms = new List<CaveRoom>()
             });
 
+            // Room 1 generic keywords
+            caveRoomsList[0].GenericKeywords.Add("feel", "You feel around, feeling relatively smooth walls");
+            caveRoomsList[0].GenericKeywords.Add("look", "You can't see anything");
+            caveRoomsList[0].GenericKeywords.Add("smell", "You smell the air, theres nothing escpecially of note");
+            caveRoomsList[0].GenericKeywords.Add("walk", "you walk around, you can hear your step echo far indicating a large space");
         }
+
+
         static void uniqueKeywordUnlocks(string uniqueKeyword, int roomNumber)
         {
             switch (roomNumber)
@@ -86,12 +93,15 @@ namespace Caveing___keyword_parsing
                     break;
             }
         }
-        static void keywordParser(List<string> uniqueKeywords, string playerInput, int roomNummer)
+
+
+        static void keywordParser(string playerInput)
         {
             // Separating player input into list of strings
             string[] separatedPlayerInput =playerInput.Split(' ');
 
-            var genericKeywords = new List<string> { "look", "feel", "smell"};
+            var genericKeywords = ;
+            var uniqueKeywords = "filler";
 
             // Comparing player inputs to all keywords
             foreach (string input in separatedPlayerInput)
@@ -125,28 +135,23 @@ namespace Caveing___keyword_parsing
                 {
                     if (input == keyword)
                     {
-                        uniqueKeywordUnlocks(input, roomNummer);
+                        uniqueKeywordUnlocks(input);
                     }
                 }
             }
         }
+
+
         static void Main(string[] args)
         {
-            // Room Data
-            // Room 1
-            var room1Keywords = new List<string> { "rope", "swim"};
-
-            // Generating Rooms
-            var CaveRooms = new List<CaveRoom>();
-            CaveRoom currentRoom = new CaveRoom();
             GenerateRooms();
 
-            //player input & calling methods
+            //Gameplay
             while (true)
             {
                 string playerInput = Console.ReadLine();
-
-                keywordParser(room1Keywords, playerInput, 1);
+                // Put player input into lowercase and handle possible word variations
+                keywordParser(playerInput);
             }
         }
     }
