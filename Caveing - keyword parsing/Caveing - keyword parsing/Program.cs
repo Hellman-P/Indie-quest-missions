@@ -14,17 +14,20 @@ namespace Caveing___keyword_parsing
             public SortedList<string, string> GenericKeywords = new SortedList<string, string>();
             public SortedList<string, string> UniqueKeywords = new SortedList<string, string>();
             public SortedList<string, bool> ExplorationUnlocks = new SortedList<string, bool>();
+            public SortedList<List<string>, bool> PossiblePaths = new SortedList<List<string>, bool>();
         }
-        static void uniqueKeywordUnlocks(string input, SortedList<string, string> uniqueKeywords)
+        static void uniqueKeywordUnlocks(string input, SortedList<string, string> uniqueKeywords, SortedList<string, bool> unlocks)
         {
-            // Add a way for unique keywords and combinations for unique keywords to change bool value in class to unlock possible neighboring room
+            // Writing unique keyword text and also unlocking exploration keys
+            Console.WriteLine(uniqueKeywords[input]);
+            unlocks[input] = true;
         }
 
 
-        static void keywordParser(string playerInput, SortedList<string, string> genericKeywords, SortedList<string, string> uniqueKeywords)
+        static void keywordParser(string playerInput, SortedList<string, string> genericKeywords, SortedList<string, string> uniqueKeywords, SortedList<string, bool> unlocks)
         {
             // Separating player input into list of strings
-            string[] separatedPlayerInput =playerInput.Split(' ', ',', '.');
+            string[] separatedPlayerInput =playerInput.Split(' ',',','.');
 
             // Comparing player inputs to all keywords
             foreach (string input in separatedPlayerInput)
@@ -39,7 +42,7 @@ namespace Caveing___keyword_parsing
                 foreach (KeyValuePair<string, string> keyValue in uniqueKeywords)
                 {
                     if (keyValue.Key == input)
-                        uniqueKeywordUnlocks(input, uniqueKeywords);
+                        uniqueKeywordUnlocks(input, uniqueKeywords, unlocks);
                 }
             }
         }
@@ -81,11 +84,15 @@ namespace Caveing___keyword_parsing
             caveRoomsList[0].GenericKeywords.Add("listen", "You can hear running water somewhere, sounds like alot");
 
             // Unique keywords
-            caveRoomsList[0].UniqueKeywords.Add("pickaxe", "You feel a wooden handle, it fits comfortable in your hands. You lift the weight and feel it to make sure, it's an old pickaxe");
-            caveRoomsList[0].UniqueKeywords.Add("Swim", " you consider jumping into the water for a while before carefully lowering yourself into the suprisingly deep cold stream. It's not as strong as you expected but you still have a hard time swimming");
+            caveRoomsList[0].UniqueKeywords.Add("pickaxe", "You feel a wooden handle, it fits comfortable in your hands. You lift the weight and feel it to make sure, it's an old pickaxe. You could probably widen a tunnel with this");
+            caveRoomsList[0].UniqueKeywords.Add("swim", " you consider jumping into the water for a while before carefully lowering yourself into the suprisingly deep cold stream. It's not as strong as you expected but you still have a hard time swimming");
 
             // Exploration unlocks
-            caveRoomsList[0].GenericKeywords.Add("Tunnel", false); // why bool not work?
+            caveRoomsList[0].ExplorationUnlocks.Add("pickaxe", false);
+            caveRoomsList[0].ExplorationUnlocks.Add("swim", false);
+
+            // Possible paths
+            caveRoomsList[0].PossiblePaths.Add(new List<string>() {"pickaxe", "swim"}, false);
 
 
             // Building room #2
@@ -100,16 +107,25 @@ namespace Caveing___keyword_parsing
 
 
             // Gameplay loop necessities
-            int currentRoom = 1;
+            int currentRoom = 0;
             var currentRoomGenericSortedList = caveRoomsList[currentRoom].GenericKeywords;
             var currentRoomUniqueSortedList = caveRoomsList[currentRoom].UniqueKeywords;
+            var currentRoomUnlocks = caveRoomsList[currentRoom].ExplorationUnlocks;
 
             //Gameplay loop
             while (true)
             {
                 string playerInput = Console.ReadLine();
-                // Put player input into lowercase and handle possible word variations
-                keywordParser(playerInput, currentRoomGenericSortedList, currentRoomUniqueSortedList);
+                // Put player input into lowercase and handle possible word variations in method here
+                keywordParser(playerInput, currentRoomGenericSortedList, currentRoomUniqueSortedList, currentRoomUnlocks);
+                foreach (KeyValuePair<string, bool> unlock in currentRoomUnlocks)
+
+                {
+                    if (unlock.Value == true)
+                    {
+                        
+                    }
+                }
             }
         }
     }
