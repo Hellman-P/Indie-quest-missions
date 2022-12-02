@@ -30,7 +30,8 @@ namespace Caveing___keyword_parsing
 
             // Separating player input into list of strings
             string playerInput = Console.ReadLine();
-            string[] separatedPlayerInput = playerInput.Split(' ', ',', '.');
+            string playerInputLower = playerInput.ToLower();
+            string[] separatedPlayerInput = playerInputLower.Split(' ', ',', '.');
 
             // Checking of the player wants to move to another room
             foreach (string input in separatedPlayerInput)
@@ -39,6 +40,9 @@ namespace Caveing___keyword_parsing
                 case "yes": case "y":
                         // Checking what options the player has unlocked and showing what they can do
 
+                        // If exploration unlock is true, add key to separate list
+                        // Compare separate list to PossiblePaths lists
+                        // if all items in a PossiblePaths key finds a match switch that PossiblePaths value to true
 
                     break;
 
@@ -131,7 +135,7 @@ namespace Caveing___keyword_parsing
             caveRoomsList[0].UniqueKeywords.Add("swim", "You consider jumping into the water for a while before carefully lowering yourself into the suprisingly deep cold stream. It's not as strong as you expected but you still have a hard time swimming");
 
             // Exploration unlocks
-            caveRoomsList[0].ExplorationUnlocks.Add("pickaxe", false);
+            caveRoomsList[0].ExplorationUnlocks.Add("pickaxe", false); 
             caveRoomsList[0].ExplorationUnlocks.Add("swim", false);
 
             // Possible paths
