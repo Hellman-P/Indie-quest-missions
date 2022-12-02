@@ -24,7 +24,36 @@ namespace Caveing___keyword_parsing
         }
 
 
-        static void keywordParser(string playerInput, SortedList<string, string> genericKeywords, SortedList<string, string> uniqueKeywords, SortedList<string, bool> unlocks)
+        static void roomExitManager(SortedList<List<string>, bool> possiblePaths)
+        {
+            Console.WriteLine("I could consider moving forwards, maybe I should?");
+
+            // Separating player input into list of strings
+            string playerInput = Console.ReadLine();
+            string[] separatedPlayerInput = playerInput.Split(' ', ',', '.');
+
+            // Checking of the player wants to move to another room
+            foreach (string input in separatedPlayerInput)
+            switch (input)
+            {
+                case "yes": case "y":
+                        // Checking what options the player has unlocked and showing what they can do
+
+
+                    break;
+
+               case "no": case "n":
+                    Console.WriteLine("Not now, I need to explore more");
+                    break;
+
+                default:
+                        Console.WriteLine("I'll consider it later...");
+                    break;
+            }
+        }
+
+
+        static void keywordParser(string playerInput, SortedList<string, string> genericKeywords, SortedList<string, string> uniqueKeywords, SortedList<string, bool> unlocks, SortedList<List<string>, bool> possiblePaths)
         {
             // Separating player input into list of strings
             string[] separatedPlayerInput =playerInput.Split(' ',',','.');
@@ -44,6 +73,17 @@ namespace Caveing___keyword_parsing
                     if (keyValue.Key == input)
                         uniqueKeywordUnlocks(input, uniqueKeywords, unlocks);
                 }
+
+                switch(input)
+                {
+                    // Checking if player wants to leave
+                    case "leave": case "exit":
+                        roomExitManager(possiblePaths);
+                        break;
+
+                    default:
+                        break;
+                }
             }
         }
 
@@ -58,21 +98,24 @@ namespace Caveing___keyword_parsing
                 Description = "You enter a dark cave...",
                 GenericKeywords = new SortedList<string, string>(),
                 UniqueKeywords = new SortedList<string, string>(),
-                ExplorationUnlocks = new SortedList<string, bool>()
+                ExplorationUnlocks = new SortedList<string, bool>(),
+                PossiblePaths = new SortedList<List<string>, bool>()
             });
             caveRoomsList.Add(new CaveRoom // 1
             {
                 Description = "You enter a wet cave...",
                 GenericKeywords = new SortedList<string, string>(),
                 UniqueKeywords = new SortedList<string, string>(),
-                ExplorationUnlocks = new SortedList<string, bool>()
+                ExplorationUnlocks = new SortedList<string, bool>(),
+                PossiblePaths = new SortedList<List<string>, bool>()
             });
             caveRoomsList.Add(new CaveRoom // 2
             {
                 Description = "You enter a smelly cave...",
                 GenericKeywords = new SortedList<string, string>(),
                 UniqueKeywords = new SortedList<string, string>(),
-                ExplorationUnlocks = new SortedList<string, bool>()
+                ExplorationUnlocks = new SortedList<string, bool>(),
+                PossiblePaths = new SortedList<List<string>, bool>()
             });
 
             // Building room #1
@@ -85,7 +128,7 @@ namespace Caveing___keyword_parsing
 
             // Unique keywords
             caveRoomsList[0].UniqueKeywords.Add("pickaxe", "You feel a wooden handle, it fits comfortable in your hands. You lift the weight and feel it to make sure, it's an old pickaxe. You could probably widen a tunnel with this");
-            caveRoomsList[0].UniqueKeywords.Add("swim", " you consider jumping into the water for a while before carefully lowering yourself into the suprisingly deep cold stream. It's not as strong as you expected but you still have a hard time swimming");
+            caveRoomsList[0].UniqueKeywords.Add("swim", "You consider jumping into the water for a while before carefully lowering yourself into the suprisingly deep cold stream. It's not as strong as you expected but you still have a hard time swimming");
 
             // Exploration unlocks
             caveRoomsList[0].ExplorationUnlocks.Add("pickaxe", false);
@@ -95,14 +138,15 @@ namespace Caveing___keyword_parsing
             caveRoomsList[0].PossiblePaths.Add(new List<string>() {"pickaxe", "swim"}, false);
 
 
+
             // Building room #2
-            caveRoomsList[1].GenericKeywords.Add("test", "testing");
+            // Generic keywords
 
             // Unique keywords
 
             // Exploration unlocks
 
-
+            // Possible paths
 
 
 
@@ -111,21 +155,18 @@ namespace Caveing___keyword_parsing
             var currentRoomGenericSortedList = caveRoomsList[currentRoom].GenericKeywords;
             var currentRoomUniqueSortedList = caveRoomsList[currentRoom].UniqueKeywords;
             var currentRoomUnlocks = caveRoomsList[currentRoom].ExplorationUnlocks;
+            var currentRoomPossiblePaths = caveRoomsList[currentRoom].PossiblePaths;
 
-            //Gameplay loop
+            // Describing and such
+            Console.WriteLine(caveRoomsList[currentRoom].Description);
+
+            //Looping systems
             while (true)
             {
                 string playerInput = Console.ReadLine();
+                string input = playerInput.ToLower();
                 // Put player input into lowercase and handle possible word variations in method here
-                keywordParser(playerInput, currentRoomGenericSortedList, currentRoomUniqueSortedList, currentRoomUnlocks);
-                foreach (KeyValuePair<string, bool> unlock in currentRoomUnlocks)
-
-                {
-                    if (unlock.Value == true)
-                    {
-                        
-                    }
-                }
+                keywordParser(input, currentRoomGenericSortedList, currentRoomUniqueSortedList, currentRoomUnlocks, currentRoomPossiblePaths);
             }
         }
     }
