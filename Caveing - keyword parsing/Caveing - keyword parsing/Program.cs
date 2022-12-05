@@ -24,7 +24,7 @@ namespace Caveing___keyword_parsing
         }
 
 
-        static void roomExitManager(SortedList<List<string>, bool> possiblePaths)
+        static void roomExitManager(SortedList<List<string>, bool> possiblePaths, SortedList<string, bool> unlocks)
         {
             Console.WriteLine("I could consider moving forwards, maybe I should?");
 
@@ -40,7 +40,20 @@ namespace Caveing___keyword_parsing
                 case "yes": case "y":
                         // Checking what options the player has unlocked and showing what they can do
 
-                        // If exploration unlock is true, add key to separate list
+                        // Putting true keywords in list
+                        var foundKeywords = new List<string>();
+                        foreach (KeyValuePair<string, bool> keyValue in unlocks)
+                        {
+                            if (keyValue.Value == true)
+                                foundKeywords.Add(keyValue.Key);
+                        }
+
+                        foreach (KeyValuePair<List<string>, bool> keyValue in possiblePaths)
+                        {
+
+                        }
+
+
                         // Compare separate list to PossiblePaths lists
                         // if all items in a PossiblePaths key finds a match switch that PossiblePaths value to true
 
@@ -82,7 +95,7 @@ namespace Caveing___keyword_parsing
                 {
                     // Checking if player wants to leave
                     case "leave": case "exit":
-                        roomExitManager(possiblePaths);
+                        roomExitManager(possiblePaths, unlocks);
                         break;
 
                     default:
