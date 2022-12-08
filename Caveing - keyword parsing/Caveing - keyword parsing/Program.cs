@@ -48,16 +48,29 @@ namespace Caveing___keyword_parsing
                                 foundKeywords.Add(keyValue.Key);
                         }
 
+                        // Comparing each possible paths keywords with found keywords
                         foreach (KeyValuePair<List<string>, bool> keyValue in possiblePaths)
                         {
+                            bool b = true;
+                            foreach (string pathTrígger in keyValue.Key)
+                            {
+                                if (!foundKeywords.Contains(pathTrígger))
+                                {
+                                    b = false;
+                                        break;
 
+                                }
+                            }
+                            if (b == true)
+                            {
+                                possiblePaths[keyValue.Key] = true;
+                            }
                         }
 
 
-                        // Compare separate list to PossiblePaths lists
-                        // if all items in a PossiblePaths key finds a match switch that PossiblePaths value to true
 
-                    break;
+
+                        break;
 
                case "no": case "n":
                     Console.WriteLine("Not now, I need to explore more");
