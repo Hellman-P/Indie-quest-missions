@@ -102,15 +102,16 @@ namespace Caveing___keyword_parsing
                             string[] separatedplayerOption = playerOptionLower.Split(' ', ',', '.');
                             //AlternativeWords(separatedPlayerInput); // Make this do something and use it before passing on
 
-
                             foreach (string optionInput in separatedplayerOption)
                             {
                                 if (foundKeywords.Contains(optionInput))
                                 {
                                     currentRoom = pathLeadsTo[0];
+                                    // also make it so the path opens for the room you enter
                                 }
                             }
                             Console.WriteLine(exitPathText[0]);
+
                         }
                         break;
 
