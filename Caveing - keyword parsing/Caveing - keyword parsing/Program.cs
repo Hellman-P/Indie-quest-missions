@@ -9,9 +9,9 @@ namespace Caveing___keyword_parsing
 {
     internal class Program
     {
+        public static int currentRoom = 0;
         class CaveRoom
         {
-            public string Description;
             public SortedList<string, string> GenericKeywords = new SortedList<string, string>();
             public SortedList<string, string> UniqueKeywords = new SortedList<string, string>();
             public SortedList<string, bool> ExplorationUnlocks = new SortedList<string, bool>();
@@ -30,7 +30,7 @@ namespace Caveing___keyword_parsing
         }
 
 
-        static void roomExitManager(SortedList<int, List<string>> pathTriggers, SortedList<int, bool> pathBooleans,SortedList<string, bool> unlocks, SortedList<int, string> exitPathText, int currentRoom, SortedList<int, int> pathLeadsTo)
+        static void roomExitManager(SortedList<int, List<string>> pathTriggers, SortedList<int, bool> pathBooleans,SortedList<string, bool> unlocks, SortedList<int, string> exitPathText, SortedList<int, int> pathLeadsTo, List<string> roomDescription)
         {
             Console.WriteLine("I could consider moving forwards, maybe I should?");
 
@@ -102,16 +102,27 @@ namespace Caveing___keyword_parsing
                             string[] separatedplayerOption = playerOptionLower.Split(' ', ',', '.');
                             //AlternativeWords(separatedPlayerInput); // Make this do something and use it before passing on
 
-                            foreach (string optionInput in separatedplayerOption)
+                            // opening choosen path both ways
+                            bool c = true;
+                            c = true;
+                            foreach (KeyValuePair<int, int> keyValue2 in pathLeadsTo)
                             {
-                                if (foundKeywords.Contains(optionInput))
+                                foreach(string optionInput in separatedplayerOption)
                                 {
-                                    currentRoom = pathLeadsTo[0];
-                                    // also make it so the path opens for the room you enter
+                                    if (c == true)
+                                    {
+                                        if (foundKeywords.Contains(optionInput))
+                                        {
+                                            c = false;
+                                            currentRoom = keyValue2.Value;
+                                            Console.WriteLine(exitPathText[currentRoom]);
+                                            Console.WriteLine(roomDescription[currentRoom]);
+                                            // also make it so the path opens for the room you enter
+                                            break;
+                                        }
+                                    }
                                 }
                             }
-                            Console.WriteLine(exitPathText[0]);
-
                         }
                         break;
 
@@ -125,10 +136,11 @@ namespace Caveing___keyword_parsing
                         break;
                 }
             }
+        
         }
 
 
-        static void keywordParser(string playerInput, SortedList<string, string> genericKeywords, SortedList<string, string> uniqueKeywords, SortedList<string, bool> unlocks, SortedList<int, List<string>> pathTriggers, SortedList<int, bool> pathBooleans, SortedList<int, string> exitPathText, int currentRoom, SortedList<int, int> pathLeadsToo)
+        static void keywordParser(string playerInput, SortedList<string, string> genericKeywords, SortedList<string, string> uniqueKeywords, SortedList<string, bool> unlocks, SortedList<int, List<string>> pathTriggers, SortedList<int, bool> pathBooleans, SortedList<int, string> exitPathText, SortedList<int, int> pathLeadsToo, List<string> roomDescription)
         {
             // Separating player input into list of strings
             string[] separatedPlayerInput =playerInput.Split(' ',',','.');
@@ -153,7 +165,7 @@ namespace Caveing___keyword_parsing
                 {
                     // Checking if player wants to leave
                     case "leave": case "exit":
-                        roomExitManager(pathTriggers, pathBooleans, unlocks, exitPathText, currentRoom, pathLeadsToo);
+                        roomExitManager(pathTriggers, pathBooleans, unlocks, exitPathText, pathLeadsToo, roomDescription);
                         break;
 
                     default:
@@ -172,42 +184,44 @@ namespace Caveing___keyword_parsing
         {
             // Generating Rooms
             var caveRoomsList = new List<CaveRoom>();
+            var roomDescriptions = new List<string>();
 
             caveRoomsList.Add(new CaveRoom // 0
             {
-                Description = "You enter a dark cave...",
                 GenericKeywords = new SortedList<string, string>(),
                 UniqueKeywords = new SortedList<string, string>(),
                 ExplorationUnlocks = new SortedList<string, bool>(),
                 PossiblePathsTriggers = new SortedList<int, List<string>>(),
                 PossiblePathsBooleans = new SortedList<int, bool>(),
                 PathExitText = new SortedList<int, string>(),
-                PathLeadsToRoom = new SortedList<int, int>()
-            });
+                PathLeadsToRoom = new SortedList<int, int>(),
+            }); ;
             caveRoomsList.Add(new CaveRoom // 1
             {
-                Description = "You enter a wet cave...",
                 GenericKeywords = new SortedList<string, string>(),
                 UniqueKeywords = new SortedList<string, string>(),
                 ExplorationUnlocks = new SortedList<string, bool>(),
                 PossiblePathsTriggers = new SortedList<int, List<string>>(),
                 PossiblePathsBooleans = new SortedList<int, bool>(),
                 PathExitText = new SortedList<int, string>(),
-                PathLeadsToRoom = new SortedList<int, int>()
+                PathLeadsToRoom = new SortedList<int, int>(),
             });
             caveRoomsList.Add(new CaveRoom // 2
             {
-                Description = "You enter a smelly cave...",
                 GenericKeywords = new SortedList<string, string>(),
                 UniqueKeywords = new SortedList<string, string>(),
                 ExplorationUnlocks = new SortedList<string, bool>(),
                 PossiblePathsTriggers = new SortedList<int, List<string>>(),
                 PossiblePathsBooleans = new SortedList<int, bool>(),
                 PathExitText = new SortedList<int, string>(),
-                PathLeadsToRoom = new SortedList<int, int>()
+                PathLeadsToRoom = new SortedList<int, int>(),
             });
 
             // Building room #1
+
+            //Room description
+            roomDescriptions.Add("You enter a dark cave");
+
             // Generic keywords
             caveRoomsList[0].GenericKeywords.Add("feel", "You feel around, feeling relatively smooth walls");
             caveRoomsList[0].GenericKeywords.Add("look", "You can't see anything");
@@ -231,42 +245,62 @@ namespace Caveing___keyword_parsing
             caveRoomsList[0].PossiblePathsTriggers.Add(0, new List<string>() { "pickaxe", "swim" });
             caveRoomsList[0].PossiblePathsTriggers.Add(1, new List<string>() { "fish", "dog" });
 
-            // Possible path triggers
+            // Possible path booleans
             caveRoomsList[0].PossiblePathsBooleans.Add(0, false);
             caveRoomsList[0].PossiblePathsBooleans.Add(1, false);
 
-            // Exit Path texts
-            caveRoomsList[0].PathExitText.Add(0, "Should I use this pickaxe as an oar and try to paddle my way out?");
-            caveRoomsList[0].PathExitText.Add(1, "There is a chance the fish and dog could combine their power to let me move further");
-
             // What room different exits lead too
-            caveRoomsList[0].PathLeadsToRoom.Add(0,1);
+            caveRoomsList[0].PathLeadsToRoom.Add(0, 1);
             caveRoomsList[0].PathLeadsToRoom.Add(1, 2);
 
+            // Exit Path texts
+            caveRoomsList[0].PathExitText.Add(0, "I will use this pickaxe as an oar and try to paddle my way out with no boat");
+            caveRoomsList[0].PathExitText.Add(1, "This fish and dog will combine their power to let me move further");
 
-            // Gameplay loop necessities
-            int currentRoom = 0;
-            var currentRoomGenericSortedList = caveRoomsList[currentRoom].GenericKeywords;
-            var currentRoomUniqueSortedList = caveRoomsList[currentRoom].UniqueKeywords;
-            var currentRoomUnlocks = caveRoomsList[currentRoom].ExplorationUnlocks;
-            var currentRoomPathTriggers = caveRoomsList[currentRoom].PossiblePathsTriggers;
-            var currentRoomPathBooleans = caveRoomsList[currentRoom].PossiblePathsBooleans;
-            var currentRoomPathExitTexts = caveRoomsList[currentRoom].PathExitText;
-            var currentRoomPathLeadsTo = caveRoomsList[currentRoom].PathLeadsToRoom;
+
+
+
+            // Building room #2
+
+            // Room Description
+            roomDescriptions.Add("You enter a wet cave...");
+
+            // Generic keywords
+            caveRoomsList[1].GenericKeywords.Add("dance", "You do a little victory dance! ┏(･o･)┛♪┗ (･o･) ┓");
+
+            // Possible paths booleans
+            caveRoomsList[1].PossiblePathsBooleans.Add(1, false);
+
+            // What room different exits lead too
+            caveRoomsList[0].PathLeadsToRoom.Add(1, 0);
+
+            // Building room #3
+            roomDescriptions.Add("You enter a smelly cave...");
+
+            // Generic keywords
+            caveRoomsList[2].GenericKeywords.Add("dance", "You do a little victory dance! ┏(･o･)┛♪┗ (･o･) ┓");
 
 
             // Intro to game and describing current room
             Console.WriteLine("Game intro text here...");
-            Console.WriteLine(caveRoomsList[currentRoom].Description);
+            Console.WriteLine(roomDescriptions[currentRoom]);
 
                 //Looping systems
                 while (true)
                 {
-                    // Take player input, put it into lowercase and pass it to the AlternativeWords
-                    string playerInput = Console.ReadLine();
+                var currentRoomGenericSortedList = caveRoomsList[currentRoom].GenericKeywords;
+                var currentRoomUniqueSortedList = caveRoomsList[currentRoom].UniqueKeywords;
+                var currentRoomUnlocks = caveRoomsList[currentRoom].ExplorationUnlocks;
+                var currentRoomPathTriggers = caveRoomsList[currentRoom].PossiblePathsTriggers;
+                var currentRoomPathBooleans = caveRoomsList[currentRoom].PossiblePathsBooleans;
+                var currentRoomPathExitTexts = caveRoomsList[currentRoom].PathExitText;
+                var currentRoomPathLeadsTo = caveRoomsList[currentRoom].PathLeadsToRoom;
+
+                // Take player input, put it into lowercase and pass it to the AlternativeWords
+                string playerInput = Console.ReadLine();
                     string input = playerInput.ToLower();
                     AlternativeWords(input); // Make this do something and use it before keywordParser
-                    keywordParser(input, currentRoomGenericSortedList, currentRoomUniqueSortedList, currentRoomUnlocks, currentRoomPathTriggers, currentRoomPathBooleans, currentRoomPathExitTexts, currentRoom, currentRoomPathLeadsTo);
+                    keywordParser(input, currentRoomGenericSortedList, currentRoomUniqueSortedList, currentRoomUnlocks, currentRoomPathTriggers, currentRoomPathBooleans, currentRoomPathExitTexts, currentRoomPathLeadsTo, roomDescriptions);
                 }
         }
     }
