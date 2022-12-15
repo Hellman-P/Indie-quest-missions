@@ -224,20 +224,12 @@ namespace Caveing___keyword_parsing
 
             // Generic keywords
             caveRoomsList[0].GenericKeywords.Add("feel", "You feel around, feeling relatively smooth walls");
-            caveRoomsList[0].GenericKeywords.Add("look", "You can't see anything");
-            caveRoomsList[0].GenericKeywords.Add("smell", "You smell the air, theres nothing escpecially of note");
-            caveRoomsList[0].GenericKeywords.Add("walk", "You walk around, you can hear your step echo far indicating a large space");
-            caveRoomsList[0].GenericKeywords.Add("listen", "You can hear running water somewhere, sounds like alot");
 
             // Unique keywords
-            caveRoomsList[0].UniqueKeywords.Add("pickaxe", "You feel a wooden handle, it fits comfortable in your hands. You lift the weight and feel it to make sure, it's an old pickaxe. You could probably widen a tunnel with this");
-            caveRoomsList[0].UniqueKeywords.Add("swim", "You consider jumping into the water for a while before carefully lowering yourself into the suprisingly deep cold stream. It's not as strong as you expected but you still have a hard time swimming");
             caveRoomsList[0].UniqueKeywords.Add("fish", "wow! a fish in a cave");
             caveRoomsList[0].UniqueKeywords.Add("dog", "wow! a dog in a cave");
 
             // Exploration unlocks
-            caveRoomsList[0].ExplorationUnlocks.Add("pickaxe", false); 
-            caveRoomsList[0].ExplorationUnlocks.Add("swim", false);
             caveRoomsList[0].ExplorationUnlocks.Add("fish", false);
             caveRoomsList[0].ExplorationUnlocks.Add("dog", false);
 
@@ -254,7 +246,6 @@ namespace Caveing___keyword_parsing
             caveRoomsList[0].PathLeadsToRoom.Add(1, 2);
 
             // Exit Path texts
-            caveRoomsList[0].PathExitText.Add(0, "I will use this pickaxe as an oar and try to paddle my way out with no boat");
             caveRoomsList[0].PathExitText.Add(1, "This fish and dog will combine their power to let me move further");
 
 
@@ -266,19 +257,52 @@ namespace Caveing___keyword_parsing
             roomDescriptions.Add("You enter a wet cave...");
 
             // Generic keywords
-            caveRoomsList[1].GenericKeywords.Add("dance", "You do a little victory dance! ┏(･o･)┛♪┗ (･o･) ┓");
+            caveRoomsList[1].GenericKeywords.Add("dance", "You do a little victory dance!");
+
+            //Unique keywords
+
+
+            // Exploration unlocks
+
+
+            // Possible path triggers
+
 
             // Possible paths booleans
             caveRoomsList[1].PossiblePathsBooleans.Add(1, false);
 
             // What room different exits lead too
-            caveRoomsList[0].PathLeadsToRoom.Add(1, 0);
+
+
+            // Exit path texts
+
+
+
 
             // Building room #3
             roomDescriptions.Add("You enter a smelly cave...");
 
             // Generic keywords
-            caveRoomsList[2].GenericKeywords.Add("dance", "You do a little victory dance! ┏(･o･)┛♪┗ (･o･) ┓");
+            caveRoomsList[2].GenericKeywords.Add("dance", "You do a little victory dance!");
+
+            //Unique keywords
+
+
+            // Exploration unlocks
+
+
+            // Possible path triggers
+
+
+            // Possible paths booleans
+            
+
+            // What room different exits lead too
+
+
+            // Exit path texts
+
+
 
 
             // Intro to game and describing current room
