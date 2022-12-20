@@ -220,7 +220,7 @@ namespace Caveing___keyword_parsing
             // Building room #1
 
             //Room description
-            roomDescriptions.Add("You enter a dark cave");
+            roomDescriptions.Add("It's quiet, you hear your movements echo and the quiet dripping of water");
 
             // Generic keywords
             caveRoomsList[0].GenericKeywords.Add("feel", "You feel around, feeling relatively smooth walls");
@@ -306,8 +306,20 @@ namespace Caveing___keyword_parsing
 
 
             // Intro to game and describing current room
-            Console.WriteLine("Game intro text here...");
+            Console.WriteLine("You make your way down into the cave, a journey you have made many times before." +
+                "\nThe winding paths, tunnels with sharp edges, the cracks so thin you can barely breathe." +
+                "\nThey have all become everyday obsicles for you, not worse than your old daily commute." +
+                "\nYou've become complacent and confident doing this. When the unthinkable happens..." +
+                "\nyour old rope you put there on your first expedition snaps." +
+                "\nYou fall, it feels like you fall further than you should." +
+                "\nYour light smashes against the wall and breaks and in the fall you hit your head and pass out..." +
+                "\n" +
+                "\n...You wake uo some time later, it's hard to tell how much time has passed." +
+                "\nAll you know is you fell, you are in the dark and no one knows you're down here..." +
+                "\nHelp wont me coming...");
+            Console.WriteLine();
             Console.WriteLine(roomDescriptions[currentRoom]);
+            Console.WriteLine("What will you do?");
 
                 //Looping systems
                 while (true)
